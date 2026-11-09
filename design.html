@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Проєкт системи кав'ярні «Солодкий куточок»</title>
+<style>
+  :root { --brown:#6b3f2a; --cream:#fbf6ef; --pink:#e9a6a6; --line:#e4d6c6; --text:#2e211a; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"Segoe UI",Arial,sans-serif; background:var(--cream); color:var(--text); line-height:1.5; }
+  header { background:var(--brown); color:#fff; padding:28px 16px; text-align:center; }
+  header h1 { margin:0 0 6px; font-size:1.7rem; }
+  header p { margin:0; opacity:.85; }
+  main { max-width:1000px; margin:0 auto; padding:16px; }
+  section { background:#fff; border:1px solid var(--line); border-radius:10px; padding:16px 20px; margin-bottom:16px; }
+  h2 { color:var(--brown); margin-top:0; font-size:1.25rem; border-bottom:2px solid var(--pink); padding-bottom:4px; }
+  table { width:100%; border-collapse:collapse; font-size:.92rem; }
+  th, td { border:1px solid var(--line); padding:6px 8px; text-align:left; vertical-align:top; }
+  th { background:#f4e9dc; }
+  .scroll { overflow-x:auto; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+  .card { border:1px solid var(--line); border-radius:8px; padding:12px; background:var(--cream); }
+  .card h3 { margin:0 0 6px; font-size:1rem; color:var(--brown); }
+  .flow { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .flow span { background:var(--pink); color:#3b1f1f; padding:8px 12px; border-radius:20px; font-size:.9rem; }
+  .flow b { color:var(--brown); }
+  .arch { display:flex; flex-direction:column; gap:6px; }
+  .layer { border:2px solid var(--brown); border-radius:8px; padding:10px 14px; background:var(--cream); }
+  .layer strong { color:var(--brown); }
+  .arrow { text-align:center; color:var(--brown); font-size:.85rem; }
+  .yes { color:#2d7a3a; font-weight:bold; text-align:center; }
+  .no { color:#b9a99a; text-align:center; }
+  pre { background:#f4e9dc; padding:10px; border-radius:6px; overflow-x:auto; font-size:.85rem; }
+  .auto { background:#e3f2e5; }
+  @media (max-width:600px) {
+    header h1 { font-size:1.3rem; }
+    section { padding:12px; }
+    table { font-size:.82rem; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Автоматизована система кав'ярні «Солодкий куточок»</h1>
+  <p>Проєкт системи продажу десертів · курсова робота, 1 курс, «Веб-технології»</p>
+</header>
+<main>
+
+<section>
+  <h2>1. Організація</h2>
+  <p>Невелика кав'ярня, що продає десерти власного виготовлення (торти, тістечка, макарон, чізкейки, круасани) у залі та на виніс. Персонал: власник-адміністратор і кілька касирів-бариста.</p>
+</section>
+
+<section>
+  <h2>2. Типові бізнес-процеси</h2>
+  <div class="scroll"><table>
+    <tr><th>№</th><th>Процес</th><th>Опис</th><th>Автоматизація</th></tr>
+    <tr><td>1</td><td>Закупівля сировини</td><td>Замовлення продуктів у постачальників</td><td>ні</td></tr>
+    <tr><td>2</td><td>Виробництво</td><td>Кондитер готує десерти</td><td>ні</td></tr>
+    <tr class="auto"><td>3</td><td>Ведення меню</td><td>Асортимент, ціни, категорії</td><td><b>так [A]</b></td></tr>
+    <tr class="auto"><td>4</td><td>Продаж</td><td>Оформлення замовлення, підрахунок суми</td><td><b>так [B]</b></td></tr>
+    <tr class="auto"><td>5</td><td>Облік залишків</td><td>Кількість десертів на вітрині</td><td><b>так [C]</b></td></tr>
+    <tr class="auto"><td>6</td><td>Звітність</td><td>Виручка, популярні десерти</td><td><b>так [D]</b></td></tr>
+  </table></div>
+  <p><b>Проблеми ручного ведення:</b> помилки в сумах і залишках, касир не знає наявності, власнику важко отримати виручку, меню доводиться переписувати.</p>
+  <p><b>Автоматизований процес продажу:</b></p>
+  <div class="flow">
+    <span>Гість обирає десерт</span><b>→</b><span>Касир додає в замовлення</span><b>→</b><span>Система перевіряє залишок і рахує суму</span><b>→</b><span>Оформлення</span><b>→</b><span>Списання залишку, збереження продажу</span>
+  </div>
+  <p><b>Самообслуговування (як у кіоску McDonald's):</b></p>
+  <div class="flow">
+    <span>Клієнт обирає десерти в меню</span><b>→</b><span>Оформлює замовлення й отримує номер</span><b>→</b><span>Замовлення з'являється в черзі касира</span><b>→</b><span>Касир: «Готове» — клієнта кличуть</span><b>→</b><span>Оплата на касі, «Видано»</span>
+  </div>
+</section>
+
+<section>
+  <h2>3. Ролі користувачів</h2>
+  <div class="grid">
+    <div class="card"><h3>Гість</h3>Будь-який відвідувач. Переглядає меню, сам оформлює замовлення без входу й стежить за його статусом.</div>
+    <div class="card"><h3>Касир</h3>Бариста за касою. Оформлює замовлення, переглядає замовлення.</div>
+    <div class="card"><h3>Адміністратор</h3>Власник. Усе, що касир, + меню, залишки, категорії, користувачі, звіти, скасування.</div>
+  </div>
+</section>
+
+<section>
+  <h2>4. Функції системи</h2>
+  <div class="scroll"><table>
+    <tr><th>Код</th><th>Функція</th><th>Гість</th><th>Касир</th><th>Адмін</th></tr>
+    <tr><td>F1</td><td>Перегляд меню з фото та фільтром за категорією</td><td class="yes">+</td><td class="yes">+</td><td class="yes">+</td></tr>
+    <tr><td>F2</td><td>Вхід / вихід</td><td class="no">–</td><td class="yes">+</td><td class="yes">+</td></tr>
+    <tr><td>F3</td><td>Створення замовлення (кошик, сума, перевірка залишку)</td><td class="no">–</td><td class="yes">+</td><td class="yes">+</td></tr>
+    <tr><td>F4</td><td>Автоматичне списання залишку</td><td class="no">–</td><td class="yes">+</td><td class="yes">+</td></tr>
+    <tr><td>F5</td><td>Перегляд замовлень і деталей</td><td class="no">–</td><td class="yes">+</td><td class="yes">+</td></tr>
+    <tr><td>F6</td><td>Скасування замовлення (повернення залишку)</td><td class="no">–</td><td class="no">–</td><td class="yes">+</td></tr>
+    <tr><td>F7</td><td>Додавання / редагування / видалення десертів (з фото)</td><td class="no">–</td><td class="no">–</td><td class="yes">+</td></tr>
+    <tr><td>F8</td><td>Поповнення залишку</td><td class="no">–</td><td class="no">–</td><td class="yes">+</td></tr>
+    <tr><td>F9</td><td>Керування категоріями</td><td class="no">–</td><td class="no">–</td><td class="yes">+</td></tr>
+    <tr><td>F10</td><td>Керування користувачами</td><td class="no">–</td><td class="no">–</td><td class="yes">+</td></tr>
+    <tr><td>F11</td><td>Звіти: виручка, кількість замовлень, топ-5 десертів</td><td class="no">–</td><td class="no">–</td><td class="yes">+</td></tr>
+    <tr><td>F12</td><td>Попередження «закінчується» (залишок &lt; 3)</td><td class="no">–</td><td class="yes">+</td><td class="yes">+</td></tr>
+    <tr><td>F13</td><td>Самостійне оформлення замовлення клієнтом (кошик, номер)</td><td class="yes">+</td><td class="yes">+</td><td class="yes">+</td></tr>
+    <tr><td>F14</td><td>Відстеження статусу замовлення (готується / готове / видано)</td><td class="yes">+</td><td class="no">–</td><td class="no">–</td></tr>
+    <tr><td>F15</td><td>Черга замовлень клієнтів: «Готове», «Видано й оплачено», скасування</td><td class="no">–</td><td class="yes">+</td><td class="yes">+</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2>5. Архітектура</h2>
+  <p>Трирівнева клієнт-серверна веб-архітектура (MVC-подібна).</p>
+  <div class="arch">
+    <div class="layer"><strong>Рівень представлення</strong> — браузер (ПК, планшет, смартфон): HTML5, CSS3 (Flexbox/Grid, media queries), JavaScript-модулі (живий чек, виділення десертів при натисканні).</div>
+    <div class="arrow">↕ HTTP (GET / POST, форми)</div>
+    <div class="layer"><strong>Рівень логіки</strong> — Node.js 22+ (сучасний JavaScript, ES-модулі): сервер <code>server.js</code>, маршрути <code>src/routes/</code>, робота з БД <code>src/db.js</code>, шаблони <code>src/views/</code>, сесії, хешування паролів (scrypt).</div>
+    <div class="arrow">↕ SQL (вбудований модуль node:sqlite)</div>
+    <div class="layer"><strong>Рівень даних</strong> — SQLite, один файл <code>cafe.db</code>.</div>
+  </div>
+  <p><b>Чому так:</b> Node.js — одна мова (JavaScript) і на сервері, і в браузері, без сторонніх бібліотек; Map і Set — для швидкого пошуку; SQLite — без окремого сервера; чистий CSS без фреймворків; прямі SQL-запити без ORM, щоб було видно роботу бази.</p>
+<pre>cafe_desserts/
+├── server.js          точка запуску
+├── package.json       опис проєкту, команда npm start
+├── src/routes/        маршрути
+├── src/views/         HTML-шаблони сторінок
+├── src/db.js          база даних, тестові дані
+├── schema.sql         опис таблиць
+├── read.me            інструкція
+├── ER.jpg             ER-модель
+├── static/style.css   адаптивні стилі
+├── static/js/        скрипти для браузера
+└── static/img/desserts/  фото десертів</pre>
+</section>
+
+<section>
+  <h2>6. Модель даних</h2>
+  <div class="scroll"><table>
+    <tr><th>Таблиця</th><th>Поля</th></tr>
+    <tr><td>users</td><td>id PK, username, password_hash, full_name, role (admin/cashier), created_at</td></tr>
+    <tr><td>categories</td><td>id PK, name</td></tr>
+    <tr><td>desserts</td><td>id PK, category_id FK, name, description, price, stock, is_active, image (файл фото)</td></tr>
+    <tr><td>orders</td><td>id PK, user_id FK (може бути NULL до видачі), created_at, updated_at, total, status (new/ready/done/cancelled), customer_note, source (staff/kiosk), customer_name, token</td></tr>
+    <tr><td>order_items</td><td>id PK, order_id FK, dessert_id FK, quantity, price</td></tr>
+  </table></div>
+  <p><b>Зв'язки:</b> categories 1:N desserts · users 1:N orders · orders 1:N order_items · desserts 1:N order_items (orders ↔ desserts — M:N через order_items).</p>
+</section>
+
+<section>
+  <h2>7. Сторінки та нефункціональні вимоги</h2>
+  <div class="grid">
+    <div class="card"><h3>Маршрути</h3><code>/</code> меню · <code>/login</code> · <code>/order/new</code> · <code>/orders</code> · <code>/orders/&lt;id&gt;</code> · <code>/admin/desserts</code> · <code>/admin/categories</code> · <code>/admin/users</code> · <code>/admin/reports</code> · <code>/cart</code> кошик клієнта · <code>/my-order/&lt;id&gt;</code> статус · <code>/queue</code> черга</div>
+    <div class="card"><h3>Вимоги</h3>Адаптивність від 360 px; українська мова; паролі лише в хеші; права перевіряються на сервері; запуск однією командою на Node.js 22.13+.</div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

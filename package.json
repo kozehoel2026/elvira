@@ -1,0 +1,15 @@
+{
+  "name": "cafe-desserts",
+  "version": "2.0.0",
+  "description": "Автоматизована система кав'ярні «Солодкий куточок» — продаж десертів (курсова робота)",
+  "type": "module",
+  "main": "server.js",
+  "private": true,
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch server.js"
+  }
+}
